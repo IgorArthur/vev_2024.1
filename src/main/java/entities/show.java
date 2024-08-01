@@ -6,7 +6,7 @@ import java.util.List;
 
 import entities_enum.Financeiro;
 
-public class show {
+public class Show {
     private Date data;
     private String artista;
     private Double cache;
@@ -17,7 +17,7 @@ public class show {
 
     
     
-    public show(Date data, String artista, Double cache, Double despesas_infraestrutura, Boolean data_especial, Financeiro statusFinanceiro) {
+    public Show(Date data, String artista, Double cache, Double despesas_infraestrutura, Boolean data_especial, Financeiro statusFinanceiro) {
         this.data = data;
         this.artista = artista;
         this.cache = cache;
