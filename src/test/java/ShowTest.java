@@ -97,5 +97,13 @@ public class ShowTest {
         assertEquals(0, lotes.size());
     }
 
+    @Test
+    public void testCalcularTotalReceita() {
+        double valorTotalEsperado = ingressoVIP.getValorBase() + ingressoNormal.getValorBase() + ingressoMeiaEntrada.getValorBase();
+    
+        double totalReceita = show.calcularTotalReceita();
+    
+        assertEquals(valorTotalEsperado, totalReceita, 0.01);
+    }
 
 }
