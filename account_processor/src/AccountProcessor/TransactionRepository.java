@@ -10,7 +10,7 @@ public class TransactionRepository {
     return this.transactionMap.containsKey(id);
   }
 
-  public Transaction geTransaction(String id) {
+  public Transaction getTransaction(String id) {
     return this.transactionMap.get(id);
   }
 
