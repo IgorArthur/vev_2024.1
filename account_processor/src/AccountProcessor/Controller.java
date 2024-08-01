@@ -41,7 +41,7 @@ public class Controller {
   }
 
   public String registerPayment(String id, LocalDate date, double value, PaymentType type, String transactionId) {
-    if (id.equals("") || date == null || value == 0 || transactionId.equals("")) {
+    if (id.equals("") || date == null || transactionId.equals("")) {
       throw new IllegalArgumentException("ENTRADA INVÁLIDA!");
     }
     if (paymentRepository.existsPayment(id)) {
@@ -50,12 +50,18 @@ public class Controller {
     if (value < 0.01 || value > 5000) {
       return "PAGAMENTOS POR BOLETO NÃO PODEM TER VALOR INFERIOR A R$0,01 OU SUPERIOR A R$5.000,00!";
     }
+
+    String returnMessage = "";
+
     Transaction transaction = transactionRepository.getTransaction(transactionId);
     if (date.isAfter(transaction.getDate())) {
       transaction.setValue((transaction.getValue() * 0.1));
+      returnMessage = "DEVIDO A DATA DO PAGAMENTO DO BOLETO, O VALOR DA CONTA FOI ACRESCIDO EM 10%.";
     }
 
     paymentRepository.registerPayment(id, date, value, type, transactionId);
-    return "PAGAMENTO CADASTRADO!";
+    returnMessage += "\nPAGAMENTO CADASTRADO!";
+
+    return returnMessage;
   }
 }
