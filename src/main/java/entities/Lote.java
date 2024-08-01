@@ -28,4 +28,8 @@ public class Lote {
         this.desconto = desconto;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
 }
