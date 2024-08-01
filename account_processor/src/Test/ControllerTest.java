@@ -64,6 +64,17 @@ public class ControllerTest {
 
     assertEquals("DEVIDO A DATA DO PAGAMENTO DO BOLETO, O VALOR DA CONTA FOI ACRESCIDO EM 10%.\nPAGAMENTO CADASTRADO!",
         controller.registerPayment("001", LocalDate.parse("2024-06-21"), 15, PaymentType.BOLETO, "001"));
+    assertEquals(16.5, controller.getTransaction("001").getValue());
+  }
 
+  @Test
+  public void testInvoiceMapsTransactionInPayment() {
+    controller.registerTransaction("001", LocalDate.parse("2024-06-20"), 15.00);
+
+    controller.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00, "Cliente Teste",
+        new HashSet<Transaction>());
+
+    assertEquals("FATURA JÁ CADASTRADA!", controller.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00,
+        "Cliente Teste", new HashSet<Transaction>()));
   }
 }

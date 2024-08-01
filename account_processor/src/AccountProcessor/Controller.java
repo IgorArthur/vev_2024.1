@@ -3,7 +3,9 @@ package AccountProcessor;
 import java.time.LocalDate;
 import java.util.HashSet;
 
+import AccountProcessor.Invoice.Invoice;
 import AccountProcessor.Invoice.InvoiceRepository;
+import AccountProcessor.Payment.Payment;
 import AccountProcessor.Payment.PaymentRepository;
 import AccountProcessor.Payment.PaymentType;
 import AccountProcessor.Transaction.Transaction;
@@ -55,7 +57,7 @@ public class Controller {
 
     Transaction transaction = transactionRepository.getTransaction(transactionId);
     if (date.isAfter(transaction.getDate())) {
-      transaction.setValue((transaction.getValue() * 0.1));
+      transaction.setValue(transaction.getValue() + (transaction.getValue() * 0.1));
       returnMessage = "DEVIDO A DATA DO PAGAMENTO DO BOLETO, O VALOR DA CONTA FOI ACRESCIDO EM 10%.";
     }
 
@@ -63,5 +65,17 @@ public class Controller {
     returnMessage += "\nPAGAMENTO CADASTRADO!";
 
     return returnMessage;
+  }
+
+  public Transaction getTransaction(String id) {
+    return this.transactionRepository.getTransaction(id);
+  }
+
+  public Invoice getInvoice(String id) {
+    return this.invoiceRepository.geInvoice(id);
+  }
+
+  public Payment getPayment(String id) {
+    return this.paymentRepository.getPayment(id);
   }
 }
