@@ -8,6 +8,7 @@ import java.util.HashSet;
 import org.junit.Test;
 
 import AccountProcessor.Controller;
+import AccountProcessor.PaymentType;
 import AccountProcessor.Transaction;
 
 public class ControllerTest {
@@ -26,5 +27,12 @@ public class ControllerTest {
     controller.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00, "Cliente Teste", new HashSet<Transaction>());
 
     assertEquals("FATURA JÁ CADASTRADA!", controller.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00, "Cliente Teste", new HashSet<Transaction>()));
+  }
+
+  @Test
+  public void testPaymentExists() {
+    controller.registerPayment("001", LocalDate.parse("2024-06-20"), 15.00, PaymentType.BOLETO);
+
+    assertEquals("PAGAMENTO JÁ CADASTRADO!", controller.registerPayment("001", LocalDate.parse("2024-06-20"), 15.00, PaymentType.BOLETO));
   }
 }

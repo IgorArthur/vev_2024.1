@@ -7,6 +7,7 @@ public class Controller {
 
   private TransactionRepository transactionRepository = new TransactionRepository();
   private InvoiceRepository invoiceRepository = new InvoiceRepository();
+  private PaymentRepository paymentRepository = new PaymentRepository();
 
   public String registerTransaction(String id, LocalDate date, double value) {
     if (id.equals("") || date == null || value == 0) {
@@ -31,5 +32,17 @@ public class Controller {
 
     invoiceRepository.registerInvoice(id, date, value, clientName, transactions);
     return "FATURA CADASTRADA!";
+  }
+
+  public String registerPayment(String id, LocalDate date, double value, PaymentType type) {
+    if (id.equals("") || date == null || value == 0) {
+      throw new IllegalArgumentException("ENTRADA INVÁLIDA!");
+    }
+    if (paymentRepository.existsPayment(id)) {
+      return "PAGAMENTO JÁ CADASTRADO!";
+    }
+
+    paymentRepository.registerPayment(id, date, value, type);
+    return "PAGAMENTO CADASTRADO!";
   }
 }
