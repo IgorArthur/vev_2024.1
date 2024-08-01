@@ -74,4 +74,28 @@ public class ShowTest {
             fail("Ocorreu uma exceção ao gerar o relatório: " + e.getMessage());
         }
     }
+
+    @Test
+    public void testAdicionarLote() {
+        Lote novoLote = new Lote();
+        novoLote.setId("Lote2");
+        novoLote.setDesconto(0.10);
+        novoLote.setIngressos(new ArrayList<>());
+        
+        show.addLote(novoLote);
+        
+        List<Lote> lotes = show.getLotes();
+        assertEquals(2, lotes.size());
+        assertEquals("Lote2", lotes.get(1).getId());
+    }
+
+    @Test
+    public void testRemoverLote() {
+        show.removeLote(lote);
+        
+        List<Lote> lotes = show.getLotes();
+        assertEquals(0, lotes.size());
+    }
+
+
 }
