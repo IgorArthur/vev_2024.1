@@ -3,17 +3,15 @@ package AccountProcessor.Invoice;
 import java.time.LocalDate;
 import java.util.HashSet;
 
-import AccountProcessor.Transaction.Transaction;
-
 public class Invoice {
 
   private String id;
   private LocalDate date;
   private double value;
   private String clientName;
-  private HashSet<Transaction> transactions;
+  private HashSet<String> transactions;
 
-  public Invoice(String id, LocalDate date, double value, String clientName, HashSet<Transaction> transactions) {
+  public Invoice(String id, LocalDate date, double value, String clientName, HashSet<String> transactions) {
     this.id = id;
     this.date = date;
     this.value = value;

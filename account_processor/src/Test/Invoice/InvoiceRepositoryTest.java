@@ -8,7 +8,6 @@ import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 
 import AccountProcessor.Invoice.InvoiceRepository;
-import AccountProcessor.Transaction.Transaction;
 
 public class InvoiceRepositoryTest {
 
@@ -16,7 +15,7 @@ public class InvoiceRepositoryTest {
 
   @Test
   void testExistsTransactionTrue() {
-    invoiceRepository.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00, "Cliente Teste", new HashSet<Transaction>());
+    invoiceRepository.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00, "Cliente Teste", new HashSet<String>());
     assertEquals(true, invoiceRepository.existsInvoice("001"));
   }
 

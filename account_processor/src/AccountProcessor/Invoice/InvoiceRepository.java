@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import AccountProcessor.Transaction.Transaction;
-
 public class InvoiceRepository {
   private HashMap<String, Invoice> invoiceMap = new HashMap<>();
 
@@ -17,7 +15,7 @@ public class InvoiceRepository {
     return this.invoiceMap.get(id);
   }
 
-  public void registerInvoice(String id, LocalDate date, double value, String clientName, HashSet<Transaction> transactions) {
+  public void registerInvoice(String id, LocalDate date, double value, String clientName, HashSet<String> transactions) {
     Invoice invoice = new Invoice(id, date, value, clientName, transactions);
     
     invoiceMap.put(id, invoice);

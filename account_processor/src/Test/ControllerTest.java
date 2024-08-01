@@ -9,8 +9,6 @@ import org.junit.Test;
 
 import AccountProcessor.Controller;
 import AccountProcessor.Payment.PaymentType;
-import AccountProcessor.Transaction.Transaction;
-import AccountProcessor.Transaction.TransactionRepository;
 
 public class ControllerTest {
 
@@ -26,10 +24,10 @@ public class ControllerTest {
   @Test
   public void testInvoiceExists() {
     controller.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00, "Cliente Teste",
-        new HashSet<Transaction>());
+        new HashSet<String>());
 
     assertEquals("FATURA JÁ CADASTRADA!", controller.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00,
-        "Cliente Teste", new HashSet<Transaction>()));
+        "Cliente Teste", new HashSet<String>()));
   }
 
   @Test
@@ -71,10 +69,13 @@ public class ControllerTest {
   public void testInvoiceMapsTransactionInPayment() {
     controller.registerTransaction("001", LocalDate.parse("2024-06-20"), 15.00);
 
+    HashSet<String> transactions = new HashSet<String>();
+    transactions.add("001");
+
     controller.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00, "Cliente Teste",
-        new HashSet<Transaction>());
+        transactions);
 
     assertEquals("FATURA JÁ CADASTRADA!", controller.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00,
-        "Cliente Teste", new HashSet<Transaction>()));
+        "Cliente Teste", new HashSet<String>()));
   }
 }

@@ -30,7 +30,7 @@ public class Controller {
   }
 
   public String registerInvoice(String id, LocalDate date, double value, String clientName,
-      HashSet<Transaction> transactions) {
+      HashSet<String> transactions) {
     if (id.equals("") || date == null || value == 0 || clientName.equals("")) {
       throw new IllegalArgumentException("ENTRADA INVÁLIDA!");
     }
