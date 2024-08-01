@@ -31,8 +31,10 @@ public class ControllerTest {
 
   @Test
   public void testPaymentExists() {
-    controller.registerPayment("001", LocalDate.parse("2024-06-20"), 15.00, PaymentType.BOLETO);
+    controller.registerTransaction("001", LocalDate.parse("2024-06-20"), 15.00);
+    
+    controller.registerPayment("001", LocalDate.parse("2024-06-20"), 15.00, PaymentType.BOLETO, "001");
 
-    assertEquals("PAGAMENTO JÁ CADASTRADO!", controller.registerPayment("001", LocalDate.parse("2024-06-20"), 15.00, PaymentType.BOLETO));
+    assertEquals("PAGAMENTO JÁ CADASTRADO!", controller.registerPayment("001", LocalDate.parse("2024-06-20"), 15.00, PaymentType.BOLETO, "001"));
   }
 }

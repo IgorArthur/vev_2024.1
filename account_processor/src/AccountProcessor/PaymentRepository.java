@@ -14,8 +14,8 @@ public class PaymentRepository {
     return this.paymentMap.get(id);
   }
 
-  public void registerPayment(String id, LocalDate date, double value, PaymentType type) {
-    Payment payment = new Payment(id, date, value, type);
+  public void registerPayment(String id, LocalDate date, double value, PaymentType type, String transactionId) {
+    Payment payment = new Payment(id, date, value, type, transactionId);
     paymentMap.put(id, payment);
   }
 }

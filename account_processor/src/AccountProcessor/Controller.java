@@ -34,15 +34,22 @@ public class Controller {
     return "FATURA CADASTRADA!";
   }
 
-  public String registerPayment(String id, LocalDate date, double value, PaymentType type) {
-    if (id.equals("") || date == null || value == 0) {
+  public String registerPayment(String id, LocalDate date, double value, PaymentType type, String transactionId) {
+    if (id.equals("") || date == null || value == 0 || transactionId.equals("")) {
       throw new IllegalArgumentException("ENTRADA INVÁLIDA!");
     }
     if (paymentRepository.existsPayment(id)) {
       return "PAGAMENTO JÁ CADASTRADO!";
     }
+    if (value < 0.01 || value > 5000) {
+      return "PAGAMENTOS POR BOLETO NÃO PODEM TER VALOR INFERIOR A R$0,01 OU SUPERIOR A R$5.000,00!";
+    }
+    Transaction transaction = transactionRepository.getTransaction(transactionId);
+    if (date.isAfter(transaction.getDate())) {
+      transaction.setValue((transaction.getValue() * 0.1));
+    }
 
-    paymentRepository.registerPayment(id, date, value, type);
+    paymentRepository.registerPayment(id, date, value, type, transactionId);
     return "PAGAMENTO CADASTRADO!";
   }
 }

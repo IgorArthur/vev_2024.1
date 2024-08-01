@@ -8,12 +8,14 @@ public class Payment {
   private LocalDate date;
   private double value;
   private PaymentType type;
+  private String transactionId;
 
-  public Payment(String id, LocalDate date, double value, PaymentType type) {
+  public Payment(String id, LocalDate date, double value, PaymentType type, String transactionId) {
     this.id = id;
     this.date = date;
     this.value = value;
     this.type = type;
+    this.transactionId = transactionId;
   }
 
   public boolean equals(Payment payment) {

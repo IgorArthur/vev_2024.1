@@ -15,7 +15,7 @@ public class PaymentRepositoryTest {
 
   @Test
   void testExistsPaymentTrue() {
-    paymentRepository.registerPayment("001", LocalDate.parse("2024-06-20"), 15.00, PaymentType.BOLETO);
+    paymentRepository.registerPayment("001", LocalDate.parse("2024-06-20"), 15.00, PaymentType.BOLETO, "001");
     assertEquals(true, paymentRepository.existsPayment("001"));
   }
 

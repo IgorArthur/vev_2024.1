@@ -29,4 +29,16 @@ public class Transaction {
       return false;
     return true;
   }
+
+  public LocalDate getDate() {
+    return this.date;
+  }
+
+  public double getValue() {
+    return this.value;
+  }
+
+  public void setValue(double newValue) {
+    this.value = newValue;
+  }
 }
