@@ -1,4 +1,4 @@
-package Test;
+package Test.Payment;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,8 +6,8 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import AccountProcessor.PaymentRepository;
-import AccountProcessor.PaymentType;
+import AccountProcessor.Payment.PaymentRepository;
+import AccountProcessor.Payment.PaymentType;
 
 public class PaymentRepositoryTest {
 

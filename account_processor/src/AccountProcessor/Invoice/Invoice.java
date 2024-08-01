@@ -1,7 +1,9 @@
-package AccountProcessor;
+package AccountProcessor.Invoice;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+
+import AccountProcessor.Transaction.Transaction;
 
 public class Invoice {
 

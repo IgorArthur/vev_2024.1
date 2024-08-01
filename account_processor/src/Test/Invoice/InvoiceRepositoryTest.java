@@ -1,4 +1,4 @@
-package Test;
+package Test.Invoice;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,8 +7,8 @@ import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
-import AccountProcessor.InvoiceRepository;
-import AccountProcessor.Transaction;
+import AccountProcessor.Invoice.InvoiceRepository;
+import AccountProcessor.Transaction.Transaction;
 
 public class InvoiceRepositoryTest {
 

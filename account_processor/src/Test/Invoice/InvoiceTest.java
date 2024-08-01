@@ -1,4 +1,4 @@
-package Test;
+package Test.Invoice;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,8 +7,8 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import AccountProcessor.Invoice;
-import AccountProcessor.Transaction;
+import AccountProcessor.Invoice.Invoice;
+import AccountProcessor.Transaction.Transaction;
 
 public class InvoiceTest {
   Invoice invoice = new Invoice("001", LocalDate.parse("2024-06-20"), 15.00, "Cliente teste", new HashSet<Transaction>());

@@ -1,8 +1,10 @@
-package AccountProcessor;
+package AccountProcessor.Invoice;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import AccountProcessor.Transaction.Transaction;
 
 public class InvoiceRepository {
   private HashMap<String, Invoice> invoiceMap = new HashMap<>();

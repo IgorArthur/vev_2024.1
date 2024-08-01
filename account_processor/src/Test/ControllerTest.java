@@ -8,8 +8,8 @@ import java.util.HashSet;
 import org.junit.Test;
 
 import AccountProcessor.Controller;
-import AccountProcessor.PaymentType;
-import AccountProcessor.Transaction;
+import AccountProcessor.Payment.PaymentType;
+import AccountProcessor.Transaction.Transaction;
 
 public class ControllerTest {
 

@@ -1,4 +1,4 @@
-package Test;
+package Test.Transaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
-import AccountProcessor.Transaction;
+import AccountProcessor.Transaction.Transaction;
 
 public class TransactionTest {
 

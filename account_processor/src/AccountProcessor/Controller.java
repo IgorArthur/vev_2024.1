@@ -3,6 +3,12 @@ package AccountProcessor;
 import java.time.LocalDate;
 import java.util.HashSet;
 
+import AccountProcessor.Invoice.InvoiceRepository;
+import AccountProcessor.Payment.PaymentRepository;
+import AccountProcessor.Payment.PaymentType;
+import AccountProcessor.Transaction.Transaction;
+import AccountProcessor.Transaction.TransactionRepository;
+
 public class Controller {
 
   private TransactionRepository transactionRepository = new TransactionRepository();

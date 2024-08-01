@@ -1,4 +1,4 @@
-package AccountProcessor;
+package AccountProcessor.Payment;
 
 public enum PaymentType {
   BOLETO,
