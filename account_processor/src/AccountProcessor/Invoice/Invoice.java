@@ -34,4 +34,12 @@ public class Invoice {
       return false;
     return true;
   }
+
+  public double getValue() {
+    return this.value;
+  }
+
+  public HashSet<String> getTransactions() {
+    return this.transactions;
+  }
 }

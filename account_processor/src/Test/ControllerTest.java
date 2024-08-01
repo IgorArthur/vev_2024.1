@@ -78,4 +78,30 @@ public class ControllerTest {
     assertEquals("FATURA JÁ CADASTRADA!", controller.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00,
         "Cliente Teste", new HashSet<String>()));
   }
+
+  @Test
+  public void testInvoicePaid() {
+    controller.registerTransaction("001", LocalDate.parse("2024-06-20"), 15.00);
+
+    HashSet<String> transactions = new HashSet<String>();
+    transactions.add("001");
+
+    controller.registerInvoice("001", LocalDate.parse("2024-06-20"), 15.00, "Cliente Teste",
+        transactions);
+
+    assertEquals("PAGA", controller.analyseInvoice("001"));
+  }
+
+  @Test
+  public void testInvoicePending() {
+    controller.registerTransaction("001", LocalDate.parse("2024-06-20"), 15.00);
+
+    HashSet<String> transactions = new HashSet<String>();
+    transactions.add("001");
+
+    controller.registerInvoice("001", LocalDate.parse("2024-06-20"), 16.00, "Cliente Teste",
+        transactions);
+
+    assertEquals("PENDENTE", controller.analyseInvoice("001"));
+  }
 }

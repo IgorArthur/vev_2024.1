@@ -33,4 +33,8 @@ public class Payment {
       return false;
     return true;
   }
+
+  public double getValue() {
+    return this.value;
+  }
 }

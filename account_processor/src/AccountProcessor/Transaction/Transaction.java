@@ -30,6 +30,10 @@ public class Transaction {
     return true;
   }
 
+  public String getId() {
+    return this.id;
+  }
+
   public LocalDate getDate() {
     return this.date;
   }

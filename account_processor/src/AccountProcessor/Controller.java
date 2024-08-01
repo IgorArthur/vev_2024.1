@@ -2,6 +2,8 @@ package AccountProcessor;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Random;
+import java.util.UUID;
 
 import AccountProcessor.Invoice.Invoice;
 import AccountProcessor.Invoice.InvoiceRepository;
@@ -66,6 +68,31 @@ public class Controller {
 
     return returnMessage;
   }
+
+  public String analyseInvoice(String invoiceId) {
+    Invoice invoice = this.getInvoice(invoiceId);
+    int paymentsTotalValue = 0;
+
+    if (!invoice.getTransactions().isEmpty()) {
+      for (String transactionId: invoice.getTransactions()) {
+        Transaction transaction = this.getTransaction(invoiceId);
+        String paymentId = UUID.randomUUID().toString();
+
+        int paymentTypeId = new Random().nextInt(2);
+        PaymentType paymentType = PaymentType.getById(paymentTypeId);
+
+        this.registerPayment(paymentId, LocalDate.now(), transaction.getValue(), paymentType, transaction.getId());
+        paymentsTotalValue += this.getPayment(paymentId).getValue();
+      }
+    }
+
+    if (paymentsTotalValue >= invoice.getValue()) {
+      return "PAGA";
+    } else {
+      return "PENDENTE";
+    }
+  }
+
 
   public Transaction getTransaction(String id) {
     return this.transactionRepository.getTransaction(id);
