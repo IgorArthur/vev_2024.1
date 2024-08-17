@@ -128,11 +128,11 @@ public class Show {
     }
 
     public String gerarRelatorio() {
-        return " <<Relatório>> \n" + 
+        return " <<Relatorio>> \n" + 
                 "Ingressos VIPs vendidos: " + vips_vendidos +
                 "\nIngressos meias vendidos: " + meia_vendidos +
                 "\nIngressos normais vendidos: " + normais_vendidos +
-                "\nReceita líquida: " + receita_liquida +
+                "\nReceita liquida: " + receita_liquida +
                 "\nStatus financeiro: " + statusFinanceiro;
     }
 }
