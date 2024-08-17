@@ -1,36 +1,39 @@
 package entities;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import entities_enum.Financeiro;
 import entities_enum.Status;
-import entities_enum.TipoDeIngresso;
 
 public class Show {
-    private Date data;
+    private String data;
     private String artista;
     private Double cache;
     private Double despesas_infraestrutura;
     private List<Lote> lotes = new ArrayList<>();
-    private Boolean data_especial;
+    private Boolean isDataEspecial;
     private Financeiro statusFinanceiro;
-
-    public Show(Date data, String artista, Double cache, Double despesas_infraestrutura, Boolean data_especial, Financeiro statusFinanceiro) {
+    private Double receita_bruta;
+    private int vips_vendidos;
+    private int normais_vendidos;
+    private int meia_vendidos;
+    private double receita_liquida;
+    
+    public Show(String data, String artista, Double cache, Double despesas_infraestrutura, Boolean data_especial) {
         this.data = data;
         this.artista = artista;
         this.cache = cache;
         this.despesas_infraestrutura = despesas_infraestrutura;
-        this.data_especial = data_especial;
-        this.statusFinanceiro = statusFinanceiro;
+        this.isDataEspecial = data_especial;
+        this.receita_bruta = 0.0;
+        this.receita_liquida = 0.0;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -58,12 +61,12 @@ public class Show {
         this.despesas_infraestrutura = despesas_infraestrutura;
     }
 
-    public Boolean getData_especial() {
-        return data_especial;
+    public Boolean getIsDataEspecial() {
+        return isDataEspecial;
     }
 
-    public void setData_especial(Boolean data_especial) {
-        this.data_especial = data_especial;
+    public void setIsDataEspecial(Boolean data_especial) {
+        this.isDataEspecial = data_especial;
     }
 
     public Financeiro getStatusFinanceiro() {
@@ -74,88 +77,62 @@ public class Show {
         this.statusFinanceiro = statusFinanceiro;
     }
 
-    public List<Lote> getLotes() {
-        return lotes;
+    public void venderIngresso(String tipo, int quantidade) {
+
+        for (Lote lote : lotes) {
+            for (Ingresso ingresso : lote.getIngressos()) {
+                if (ingresso.getStatus().equals(Status.DISPONIVEL)) {
+                    receita_bruta += ingresso.getValor();
+                    ingresso.setStatus(Status.VENDIDO);
+                    
+                    switch (tipo.toLowerCase()) {
+                        case "vip":
+                            vips_vendidos++;
+                            break;
+                        case "meia":
+                            meia_vendidos++;
+                            break;
+                        case "normal":
+                            normais_vendidos++;
+                            break;
+                    }
+                    quantidade--;
+                    if (quantidade == 0) {
+                        calcularReceita();
+                        return;
+                    } 
+                }
+            }
+        }
+        calcularReceita(); 
     }
 
     public void addLote(Lote lote) {
         lotes.add(lote);
     }
 
-    public void removeLote(Lote lote) {
-        lotes.remove(lote);
-    }
-
-    public double calcularReceitaLiquida() {
-        double receitaBruta = 0.0;
-
-        for (Lote lote : lotes) {
-            double desconto = lote.getDesconto();
-            for (Ingresso ingresso : lote.getIngressos()) {
-                if (ingresso.getStatus() == Status.VENDIDO) {
-                    double valor = ingresso.getValorBase();
-                    if (ingresso.getTipo() == TipoDeIngresso.VIP || ingresso.getTipo() == TipoDeIngresso.NORMAL) {
-                        valor -= valor * desconto; // Aplicando desconto
-                    }
-                    receitaBruta += valor;
-                }
-            }
+    public void calcularReceita() {
+        if (isDataEspecial) {
+           receita_liquida = receita_bruta - ((despesas_infraestrutura * 1.15) + cache);
+        } else {
+            receita_liquida = receita_bruta - (despesas_infraestrutura + cache);
         }
 
-        double despesas = despesas_infraestrutura;
-        if (data_especial) {
-            despesas += despesas * 0.15; // 15% a mais para data especial
-        }
-
-        double receitaLiquida = receitaBruta - despesas - cache;
-
-        if (receitaLiquida > 0) {
+        if (receita_liquida > 0) {
             statusFinanceiro = Financeiro.LUCRO;
-        } else if (receitaLiquida == 0) {
+        } else if (receita_liquida == 0) {
             statusFinanceiro = Financeiro.ESTAVEL;
         } else {
             statusFinanceiro = Financeiro.PREJUIZO;
         }
-
-        return receitaLiquida;
     }
 
-    public int contarIngressosVendidosPorTipo(TipoDeIngresso tipo) {
-        int count = 0;
-        for (Lote lote : lotes) {
-            for (Ingresso ingresso : lote.getIngressos()) {
-                if (ingresso.getTipo() == tipo && ingresso.getStatus() == Status.VENDIDO) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
-
-    public double calcularTotalReceita() {
-        double total = 0.0;
-        for (Lote lote : lotes) {
-            for (Ingresso ingresso : lote.getIngressos()) {
-                if (ingresso.getStatus() == Status.VENDIDO) {
-                    total += ingresso.getValorBase();
-                }
-            }
-        }
-        return total;
-    }
-
-    public void gerarRelatorio() {
-        int vendidosVIP = contarIngressosVendidosPorTipo(TipoDeIngresso.VIP);
-        int vendidosNormal = contarIngressosVendidosPorTipo(TipoDeIngresso.NORMAL);
-        int vendidosMeiaEntrada = contarIngressosVendidosPorTipo(TipoDeIngresso.MEIA);
-
-        double receitaLiquida = calcularReceitaLiquida();
-
-        System.out.println("Relatório do Show:");
-        System.out.println("Ingressos vendidos VIP: " + vendidosVIP);
-        System.out.println("Ingressos vendidos NORMAL: " + vendidosNormal);
-        System.out.println("Ingressos vendidos MEIA ENTRADA: " + vendidosMeiaEntrada);
-        System.out.println("Receita líquida: R$ " + receitaLiquida);
-        System.out.println("Status financeiro: " + statusFinanceiro);
+    public String gerarRelatorio() {
+        return " <<Relatório>> \n" + 
+                "Ingressos VIPs vendidos: " + vips_vendidos +
+                "\nIngressos meias vendidos: " + meia_vendidos +
+                "\nIngressos normais vendidos: " + normais_vendidos +
+                "\nReceita líquida: " + receita_liquida +
+                "\nStatus financeiro: " + statusFinanceiro;
     }
 }
