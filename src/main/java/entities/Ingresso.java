@@ -39,12 +39,16 @@ public class Ingresso {
         this.tipo = tipo;
     }
 
-    public Double getValorBase() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValorBase(Double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    public void setDesconto(Double desconto) {
+        this.valor -= valor * (desconto / 100);
     }
 
 }
