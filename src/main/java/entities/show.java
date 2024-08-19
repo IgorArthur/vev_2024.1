@@ -111,6 +111,10 @@ public class Show {
         lotes.add(lote);
     }
 
+    public List<Lote> getLotes() {
+        return lotes;
+    }
+
     public void calcularReceita() {
         if (isDataEspecial) {
            receita_liquida = receita_bruta - ((despesas_infraestrutura * 1.15) + cache);

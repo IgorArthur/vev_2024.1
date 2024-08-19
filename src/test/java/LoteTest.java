@@ -1,7 +1,11 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import entities.Ingresso;
 import entities.Lote;
+import entities.Show;
+import entities_enum.Status;
+import entities_enum.TipoDeIngresso;
 
 public class LoteTest {
     
@@ -108,6 +112,45 @@ public class LoteTest {
         // Verificação da quantidade de ingressos normais
         double ingressos_normais = lote.getIngressos_normais();
         Assert.assertEquals(0.0, ingressos_normais, 0);
+    }
+    
+    @Test
+    public void aplicandoDescontosLimiteSuperior() {
+        Lote lote = new Lote("lote02");
+        lote.cadastrarIngressos(100, 20, 10.0);
+        
+        // Desconto de 25% para ingressos VIPs e Normais (Limite superior)
+        String resultado = lote.oferecerDesconto(25.0);
+        double valor = 0.0;
+        for (Ingresso ingressos : lote.getIngressos()) {
+            if (ingressos.getTipo() != TipoDeIngresso.MEIA) {
+                valor += ingressos.getValor();
+            }
+        }
+        Assert.assertEquals(825.0, valor, 0.0);
+        Assert.assertEquals("Desconto de 25.0% aplicado", resultado);
+    }
+
+    @Test
+    public void aplicandoDescontosAcimaDoLimiteSuperior() {
+        Lote lote = new Lote("lote02");
+        lote.cadastrarIngressos(100, 20, 10.0);
+        
+        // Desconto acima do limite superior para ingressos VIPs e Normais
+        String resultado =  lote.oferecerDesconto(26.0);
+        
+        Assert.assertEquals("O desconto máximo é de apenas 25%", resultado);
+    }
+
+    @Test
+    public void aplicandoDescontoEmIngressoMeiaLimiteSuperior() {
+        Lote lote = new Lote("lote02");
+        Ingresso ingresso = new Ingresso("0M", Status.DISPONIVEL, TipoDeIngresso.MEIA, 5.0);
+        lote.addIngressos(ingresso);
+        
+        // Desconto para ingressos que não são elegíveis
+        String resultado = lote.oferecerDesconto(25.0, "0M");
+        Assert.assertEquals("Ingresso não elegível a desconto", resultado);
     }
 
 }
