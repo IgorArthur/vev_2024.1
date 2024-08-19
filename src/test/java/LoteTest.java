@@ -3,7 +3,6 @@ import org.junit.Test;
 
 import entities.Ingresso;
 import entities.Lote;
-import entities.Show;
 import entities_enum.Status;
 import entities_enum.TipoDeIngresso;
 
@@ -152,5 +151,4 @@ public class LoteTest {
         String resultado = lote.oferecerDesconto(25.0, "0M");
         Assert.assertEquals("Ingresso não elegível a desconto", resultado);
     }
-
 }

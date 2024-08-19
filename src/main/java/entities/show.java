@@ -57,6 +57,18 @@ public class Show {
         return despesas_infraestrutura;
     }
 
+    public int getVipsVendidos() {
+        return vips_vendidos;
+    }
+
+    public int getNormaisVendidos() {
+        return normais_vendidos;
+    }
+
+    public int getMeiasVendidos() {
+        return meia_vendidos;
+    }
+
     public void setDespesas_infraestrutura(Double despesas_infraestrutura) {
         this.despesas_infraestrutura = despesas_infraestrutura;
     }
@@ -78,8 +90,14 @@ public class Show {
     }
 
     public void venderIngresso(String tipo, int quantidade) {
-
         for (Lote lote : lotes) {
+            if (tipo.toLowerCase() == "vip" && quantidade > lote.getIngressos_vips()) {
+                break;
+            } else if (tipo.toLowerCase() == "normal" && quantidade > lote.getIngressos_normais()) {
+                break;
+            } else if (tipo.toLowerCase() == "meia" && quantidade > lote.getIngressos_meia()) {
+                break;
+            }
             for (Ingresso ingresso : lote.getIngressos()) {
                 if (ingresso.getStatus().equals(Status.DISPONIVEL)) {
                     receita_bruta += ingresso.getValor();

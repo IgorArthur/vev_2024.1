@@ -89,6 +89,12 @@ public class Lote {
         ingressos.remove(ingresso);
     }
 
+    public double getPorcentagemVip() {
+        return maxDesconto;
+    }
+
+    
+
     public Boolean getElegivelDesconto() {
         return elegivelDesconto;
     }
