@@ -12,6 +12,7 @@ public class Lote {
     private Boolean elegivelDesconto;
     Double maxDesconto;
     Double maxIngressosVip;
+    Double minIngressosVip;
     double ingressos_meia;
     double ingressos_vips;
     double ingressos_normais;
@@ -21,6 +22,7 @@ public class Lote {
         this.id = id;
         this.maxDesconto = 25.0;
         this.maxIngressosVip  = 30.0; // %
+        this.minIngressosVip = 20.0; // problema localizado através dos testes AVL
     }
 
     // Desconto em % por ingresso 
@@ -112,7 +114,12 @@ public class Lote {
         
         String msg_ingressos = "";
         if (porcentagemVip > maxIngressosVip) {
-            msg_ingressos = "Capacidade máxima de ingressos VIP é de 30%";
+            msg_ingressos = "Capacidade maxima de ingressos VIP de 30%";
+        } else if (n_ingressos <= 0) {
+            msg_ingressos = "Pelo menos 1 ingresso deve ser cadastrado!"; // Notado durante os testes
+        }
+         else if (porcentagemVip < minIngressosVip) {
+            msg_ingressos = "Ingressos vips devem ser no minimo 20%";
         } else {
             ingressos_meia = n_ingressos * 0.10;
             ingressos_vips = n_ingressos * (porcentagemVip/100);

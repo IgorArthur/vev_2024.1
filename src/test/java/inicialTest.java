@@ -10,7 +10,7 @@ public class inicialTest {
     public void inicialTeste() {
         Show show = new Show("08/05/2001", "Nattanzinho", 1000.00, 2000.00, true);
         Lote lote = new Lote("lote01");
-        lote.cadastrarIngressos(500, 20, 10);
+        lote.cadastrarIngressos(500, 35, 10);
         lote.oferecerDesconto(15.0); // para todos os ingressos vips e normais
 
         show.addLote(lote);
