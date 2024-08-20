@@ -49,6 +49,10 @@ public class Show {
         return cache;
     }
 
+    public Double getReceitaLiquida() {
+        return receita_liquida;
+    }
+
     public void setCache(Double cache) {
         this.cache = cache;
     }
@@ -99,7 +103,7 @@ public class Show {
                 break;
             }
             for (Ingresso ingresso : lote.getIngressos()) {
-                if (ingresso.getStatus().equals(Status.DISPONIVEL)) {
+                if (ingresso.getStatus().equals(Status.DISPONIVEL) && ingresso.getTipo().name().equalsIgnoreCase(tipo)) {
                     receita_bruta += ingresso.getValor();
                     ingresso.setStatus(Status.VENDIDO);
                     
